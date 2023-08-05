@@ -42,15 +42,21 @@ class LoginPage extends GetView<LoginController> {
                   ),
                 ),
                 const _FormInput(),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 16.0),
+                  child: _SaveIp(),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 18.0),
-                  child: TemplateButton(
-                    onTap: controller.login,
-                    borderRadius: 4.0,
-                    child: const Text("Login", style: btnStyle),
+                  child: Obx(
+                    () => TemplateButton(
+                      borderRadius: 4.0,
+                      onTap: controller.login,
+                      isLoading: controller.btnLoading.value,
+                      child: const Text("Login", style: btnStyle),
+                    ),
                   ),
                 ),
-                const _SaveIp()
               ],
             ),
           ),
@@ -94,7 +100,7 @@ class _FormInput extends GetView<LoginController> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 30.0),
+              padding: const EdgeInsets.only(bottom: 16.0),
               child: AuthTextField(
                 label: "Password",
                 hint: "Masukkan password",
