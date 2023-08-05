@@ -13,9 +13,10 @@ class LoginController extends GetxController {
   var isConnecting = false.obs;
   var connect = false.obs;
   var ipFormKey = GlobalKey<FormFieldState>();
+  var formKey = GlobalKey<FormState>();
 
   login() {
-    connect.value = false;
+    // if (formKey.currentState!.validate()) {}
   }
 
   onChanged(String value) async {

@@ -65,43 +65,46 @@ class _FormInput extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Column(
-        children: [
-          if (!controller.connect.value)
+    return Form(
+      key: controller.formKey,
+      child: Obx(
+        () => Column(
+          children: [
+            if (!controller.connect.value)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: AuthTextField(
+                  label: "Ip Addres",
+                  hint: "Masukkan ip address",
+                  keyForm: controller.ipFormKey,
+                  keyboardType: TextInputType.number,
+                  controller: controller.ipController,
+                  isLoading: controller.isConnecting.value,
+                  onChanged: controller.onChanged,
+                  validator: ipValidator,
+                ),
+              ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: AuthTextField(
-                label: "Ip Addres",
-                hint: "Masukkan ip address",
-                keyForm: controller.ipFormKey,
-                keyboardType: TextInputType.number,
-                controller: controller.ipController,
-                isLoading: controller.isConnecting.value,
-                onChanged: controller.onChanged,
-                validator: ipValidator,
+                label: "Username",
+                hint: "Masukkan username",
+                controller: controller.usernameController,
+                validator: (value) => emptyValidator("Username", value!),
               ),
             ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: AuthTextField(
-              label: "Username",
-              hint: "Masukkan username",
-              controller: controller.usernameController,
-              validator: (value) => emptyValidator("Username", value!),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: AuthTextField(
+                label: "Password",
+                hint: "Masukkan password",
+                isPassword: true,
+                controller: controller.pwController,
+                validator: (value) => emptyValidator("Password", value!),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 30.0),
-            child: AuthTextField(
-              label: "Password",
-              hint: "Masukkan password",
-              isPassword: true,
-              controller: controller.pwController,
-              validator: (value) => emptyValidator("Password", value!),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
