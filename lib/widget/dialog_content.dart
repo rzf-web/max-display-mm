@@ -28,10 +28,9 @@ class DialogContent extends StatelessWidget {
           const SizedBox(height: 32),
           Text(
             getTitle(),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: getColor(),
             ),
           ),
           const SizedBox(height: 16),
@@ -43,13 +42,6 @@ class DialogContent extends StatelessWidget {
             ),
           ),
           action ?? const SizedBox(height: 32),
-          if (action == null)
-            Container(
-              width: 120,
-              decoration: BoxDecoration(
-                border: Border.all(color: getColor()),
-              ),
-            ),
           const SizedBox(height: 28),
         ],
       ),
@@ -64,17 +56,6 @@ class DialogContent extends StatelessWidget {
         return "Warning!";
       default:
         return "Berhasil!";
-    }
-  }
-
-  Color getColor() {
-    switch (actionDialog) {
-      case ActionDialog.error:
-        return const Color(0xFFF53232);
-      case ActionDialog.warning:
-        return const Color(0xFFFF9046);
-      default:
-        return const Color(0xFF64D97E);
     }
   }
 }

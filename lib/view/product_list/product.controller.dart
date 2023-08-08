@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:max_display_app/helper/dialog.dart';
 import 'package:max_display_app/helper/formatter.dart';
+import 'package:max_display_app/helper/validator.dart';
 import 'package:max_display_app/json_dummy.dart';
 import 'package:max_display_app/model/product.dart';
+import 'package:max_display_app/widget/dialog_content.dart';
 
 enum InputMode { request, confirm }
 
@@ -32,9 +34,31 @@ class ProductController extends GetxController {
     }
   }
 
-  submitRequest() {}
+  submitRequest() {
+    String? valid = phoneValidator(
+      "Jumlah Request",
+      reqController.text,
+    );
 
-  submitConfrim() {}
+    if (valid == null) {
+      //TODO:do something
+    } else {
+      actionDialog(valid, actionDialog: ActionDialog.warning);
+    }
+  }
+
+  submitConfrim() {
+    String? valid = phoneValidator(
+      "Jumlah Konfirmasi",
+      confController.text,
+    );
+
+    if (valid == null) {
+      //TODO:do something
+    } else {
+      actionDialog(valid, actionDialog: ActionDialog.warning);
+    }
+  }
 
   getData() async {
     isLoading.value = true;

@@ -107,10 +107,6 @@ class DetailProductLayout extends GetView<ProductController> {
                   icon: MdiIcons.arrowUpRight,
                   controller: controller.reqController,
                   keyboardType: TextInputType.number,
-                  validator: (value) => phoneValidator(
-                    "Jumlah Request",
-                    value!,
-                  ),
                 )
               else
                 Row(
@@ -131,17 +127,13 @@ class DetailProductLayout extends GetView<ProductController> {
                         icon: MdiIcons.arrowDown,
                         controller: controller.confController,
                         keyboardType: TextInputType.number,
-                        validator: (value) => phoneValidator(
-                          "Jumlah Konfirmasi",
-                          value!,
-                        ),
                       ),
                     ),
                   ],
                 ),
               TemplateButton(
+                onTap: controller.submit,
                 child: const Text("Submit", style: btnStyle),
-                onTap: () {},
               ),
             ],
           ),
