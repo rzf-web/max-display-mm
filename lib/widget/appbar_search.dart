@@ -5,6 +5,7 @@ import 'package:max_display_app/widget/search_textfield.dart';
 
 class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final Widget? backWidget;
   final Rx<bool> searchMode;
   final TextEditingController? controller;
   final Function(String)? onChanged;
@@ -14,13 +15,15 @@ class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
     required this.searchMode,
     this.controller,
     this.onChanged,
+    this.backWidget,
   });
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => AppBar(
-        title: searchMode.value ? null : const Text("Daftar Rak"),
+        leading: searchMode.value ? const SizedBox() : backWidget,
+        title: searchMode.value ? null : Text(title),
         actions: [
           if (!searchMode.value)
             IconButton(

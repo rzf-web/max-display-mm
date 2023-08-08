@@ -25,3 +25,38 @@ const jsonRacks = [
     "totalQty": 100,
   },
 ];
+const jsonProducts = [
+  {
+    "idproduk": "24066900001",
+    "barcode": "66900001",
+    "nama": "TEST",
+    "rak": "Rak A",
+    "planogram": "-",
+    "retail": 0,
+    "min": 0,
+    "request": 0,
+    "acc": 0
+  },
+  {
+    "idproduk": "24066500001",
+    "barcode": "88955544778554",
+    "nama": "YOU C1000 LEMON WATER  PET 500ML",
+    "rak": "Rak B",
+    "planogram": "11D126",
+    "retail": 18000,
+    "min": 0,
+    "request": 0,
+    "acc": 0
+  },
+  {
+    "idproduk": "2106500001",
+    "barcode": "6500001",
+    "nama": "Pop Mie",
+    "rak": "Rak B",
+    "planogram": "887584",
+    "retail": 5800,
+    "min": 0,
+    "request": 0,
+    "acc": 0,
+  }
+];

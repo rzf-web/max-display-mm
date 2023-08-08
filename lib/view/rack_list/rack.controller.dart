@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:max_display_app/json_dummy.dart';
 import 'package:max_display_app/model/rack.dart';
+import 'package:max_display_app/view/product_list/product.controller.dart';
+import 'package:max_display_app/view/product_list/product.page.dart';
 
 class RackController extends GetxController {
   final searchController = TextEditingController();
@@ -32,6 +34,13 @@ class RackController extends GetxController {
     } else {
       rackList.value = _rackList;
     }
+  }
+
+  productPage() {
+    Get.to(
+      const ProductPage(),
+      binding: BindingsBuilder.put(() => ProductController()),
+    );
   }
 
   Future<bool> getBack() async {
