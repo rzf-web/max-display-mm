@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:max_display_app/helper/dialog.dart';
 import 'package:max_display_app/helper/formatter.dart';
 import 'package:max_display_app/helper/validator.dart';
-import 'package:max_display_app/json_dummy.dart';
 import 'package:max_display_app/model/product.dart';
+import 'package:max_display_app/services/api/api_helper.dart';
+import 'package:max_display_app/services/api/api_service.dart';
 
 enum InputMode { request, confirm }
 
@@ -24,6 +25,9 @@ class ProductController extends GetxController {
   var inputMode = InputMode.request.obs;
   var searchMode = false.obs;
   var isLoading = false.obs;
+  var rack = "";
+
+  ProductController(this.rack);
 
   submit() {
     if (inputMode.value == InputMode.request) {
@@ -61,13 +65,20 @@ class ProductController extends GetxController {
 
   getData() async {
     isLoading.value = true;
-    _products.clear();
-    for (var item in jsonProducts) {
-      _products.add(Product.fromJson(item));
-    }
-    products.value = _products;
-    await Future.delayed(const Duration(milliseconds: 100));
+    var response = await ApiService.get(
+      url + product,
+      queryParameters: {"rak": rack},
+    );
     isLoading.value = false;
+    var success = await manageResponse(response);
+    if (success) {
+      var data = getDataResponse(response);
+      _products.clear();
+      for (var item in data['data'] as List<dynamic>) {
+        _products.add(Product.fromJson(item));
+      }
+      products.value = _products;
+    }
   }
 
   showDetail(Product data) async {

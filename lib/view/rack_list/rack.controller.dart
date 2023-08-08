@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:max_display_app/json_dummy.dart';
 import 'package:max_display_app/model/rack.dart';
+import 'package:max_display_app/services/api/api_helper.dart';
+import 'package:max_display_app/services/api/api_service.dart';
 import 'package:max_display_app/view/product_list/product.controller.dart';
 import 'package:max_display_app/view/product_list/product.page.dart';
 
@@ -14,13 +15,17 @@ class RackController extends GetxController {
 
   getData() async {
     isLoading.value = true;
-    _rackList.clear();
-    for (var item in jsonRacks) {
-      _rackList.add(Rack.fromJson(item));
-    }
-    rackList.value = _rackList;
-    await Future.delayed(const Duration(milliseconds: 100));
+    var response = await ApiService.get(url + rack);
     isLoading.value = false;
+    var success = await manageResponse(response);
+    if (success) {
+      var data = getDataResponse(response);
+      _rackList.clear();
+      for (var item in data['data'] as List<dynamic>) {
+        _rackList.add(Rack.fromJson(item));
+      }
+      rackList.value = _rackList;
+    }
   }
 
   onSearch(String? value) {
@@ -36,10 +41,10 @@ class RackController extends GetxController {
     }
   }
 
-  productPage() {
+  productPage(String rack) {
     Get.to(
       const ProductPage(),
-      binding: BindingsBuilder.put(() => ProductController()),
+      binding: BindingsBuilder.put(() => ProductController(rack)),
     );
   }
 
@@ -52,8 +57,8 @@ class RackController extends GetxController {
   }
 
   @override
-  void onInit() {
-    getData();
+  Future<void> onInit() async {
+    await getData();
     super.onInit();
   }
 }

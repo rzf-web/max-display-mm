@@ -40,7 +40,7 @@ class RackPage extends GetView<RackController> {
                                   title: e.name,
                                   subtitle: "${e.totalProduct} Product",
                                   content: "${e.totalQty} Qty",
-                                  onTap: controller.productPage,
+                                  onTap: () => controller.productPage(e.name),
                                 ),
                               ),
                         ],

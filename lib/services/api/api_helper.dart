@@ -9,6 +9,8 @@ var ip = "";
 const port = "1934";
 const testing = "/test";
 const user = "/user";
+const rack = "/rak";
+const product = "/produk/maxdisplay";
 
 //Function Helper
 BaseOptions getOptionTimeOut(int seconds) {
@@ -32,8 +34,8 @@ getHeader({Map<String, dynamic>? header}) {
   return dataHeader;
 }
 
-dynamic getDataResponse(dio.Response data) {
-  var response = data.data;
+dynamic getDataResponse(dynamic data) {
+  var response = (data as dio.Response).data;
   return response;
 }
 
