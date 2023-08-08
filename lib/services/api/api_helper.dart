@@ -1,21 +1,14 @@
 //API URL
 import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:get/get.dart';
 import 'package:max_display_app/helper/dialog.dart';
 
-import '../../widget/dialog_content.dart';
-
-var urlImg = "https://www.rzfsoftware.com/member/admin/v1/upload-profile";
-var url = "https://rzfkomputer.com/pos/api/v1/";
-// var url = "http://192.168.100.31/rzf-pos-api/v1/";
-// var url = "http://192.168.8.118/rzf-pos-api/v1/";
-var authUrl = "login";
-var productUrl = "product";
-var categoryUrl = "category";
-var customerUrl = "customer";
-var tableUrl = "table";
-var saleUrl = "sale";
-var profileUrl = "profile";
-var receiptUrl = "design-receipt";
+var url = "";
+var ip = "";
+const port = "1934";
+const testing = "/test";
+const user = "/user";
 
 //Function Helper
 BaseOptions getOptionTimeOut(int seconds) {
@@ -39,7 +32,7 @@ getHeader({Map<String, dynamic>? header}) {
   return dataHeader;
 }
 
-dynamic getDataResponse(Response data) {
+dynamic getDataResponse(dio.Response data) {
   var response = data.data;
   return response;
 }
@@ -49,7 +42,7 @@ Future<bool> manageResponse(
   bool success = false,
   bool error = true,
 }) async {
-  if (data is Response) {
+  if (data is dio.Response) {
     var response = data;
     return await _succesResponse(response, success);
   } else {
@@ -58,10 +51,10 @@ Future<bool> manageResponse(
   }
 }
 
-Future<bool> _succesResponse(Response data, bool showMsg) async {
+Future<bool> _succesResponse(dio.Response data, bool showMsg) async {
   var response = data.data;
   if (showMsg == true) {
-    actionDialog(response['message']);
+    succesDialog(response['message'], () => Get.back());
   }
   return true;
 }
@@ -70,18 +63,15 @@ Future<bool> _errorResponse(DioException exception, bool showMsg) async {
   var response = exception.response?.data;
   if (response != null) {
     if (showMsg) {
-      actionDialog(response["message"], actionDialog: ActionDialog.error);
+      warningDialog(response["message"], () => Get.back());
     }
     return false;
   }
   if (exception.message != null) {
-    actionDialog(exception.message!, actionDialog: ActionDialog.error);
+    errorDialog(exception.message!, () => Get.back());
     return false;
   } else {
-    actionDialog(
-      exception.error.toString(),
-      actionDialog: ActionDialog.error,
-    );
+    errorDialog(exception.error.toString(), () => Get.back());
     return false;
   }
 }

@@ -1,30 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:max_display_app/view/product_list/product.page.dart';
-import 'package:max_display_app/widget/dialog_content.dart';
 
-actionDialog(
-  String message, {
-  ActionDialog actionDialog = ActionDialog.success,
-}) async {
-  var isClosed = false;
-  Get.dialog(
-    transitionCurve: Curves.fastOutSlowIn,
-    AlertDialog(
-      insetPadding: EdgeInsets.zero,
-      contentPadding: EdgeInsets.zero,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      actionsPadding: const EdgeInsets.fromLTRB(18.0, 0.0, 18.0, 18.0),
-      content: DialogContent(message: message, actionDialog: actionDialog),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-      ),
-    ),
-  ).then((_) => isClosed = true);
-  await Future.delayed(const Duration(milliseconds: 2000));
-  if (isClosed == false) {
-    Get.back();
-  }
+errorDialog(String contentText, Function() btnOke) {
+  return Get.dialog(AlertDialog(
+    title: const Text("Error"),
+    content: Text(contentText),
+    actions: [
+      ElevatedButton(
+        onPressed: btnOke,
+        child: const Text("Oke"),
+      )
+    ],
+  ));
+}
+
+infoDialog(String contentText, Function() btnOke) {
+  return Get.dialog(AlertDialog(
+    title: const Text("Informasi"),
+    content: Text(contentText),
+    actions: [
+      ElevatedButton(
+        onPressed: btnOke,
+        child: const Text("Oke"),
+      )
+    ],
+  ));
+}
+
+warningDialog(String contentText, Function() btnOke) {
+  return Get.dialog(AlertDialog(
+    title: const Text("Warning!"),
+    content: Text(contentText),
+    actions: [
+      ElevatedButton(
+        onPressed: btnOke,
+        child: const Text("Oke"),
+      )
+    ],
+  ));
+}
+
+succesDialog(String contentText, Function() btnOke) {
+  return Get.dialog(AlertDialog(
+    title: const Text("Sukses"),
+    content: Text(contentText),
+    actions: [
+      ElevatedButton(
+        onPressed: btnOke,
+        child: const Text("Oke"),
+      )
+    ],
+  ));
 }
 
 showSnackbar(String message) {

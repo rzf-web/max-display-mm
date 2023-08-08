@@ -5,7 +5,6 @@ import 'package:max_display_app/helper/formatter.dart';
 import 'package:max_display_app/helper/validator.dart';
 import 'package:max_display_app/json_dummy.dart';
 import 'package:max_display_app/model/product.dart';
-import 'package:max_display_app/widget/dialog_content.dart';
 
 enum InputMode { request, confirm }
 
@@ -43,7 +42,7 @@ class ProductController extends GetxController {
     if (valid == null) {
       //TODO:do something
     } else {
-      actionDialog(valid, actionDialog: ActionDialog.warning);
+      warningDialog(valid, () => Get.back());
     }
   }
 
@@ -56,7 +55,7 @@ class ProductController extends GetxController {
     if (valid == null) {
       //TODO:do something
     } else {
-      actionDialog(valid, actionDialog: ActionDialog.warning);
+      warningDialog(valid, () => Get.back());
     }
   }
 

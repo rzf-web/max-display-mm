@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:max_display_app/helper/dialog.dart';
+import 'package:max_display_app/services/api/api_helper.dart';
+import 'package:max_display_app/services/api/api_service.dart';
 import 'package:max_display_app/view/rack_list/rack.controller.dart';
 import 'package:max_display_app/view/rack_list/rack.page.dart';
 
@@ -19,27 +21,41 @@ class LoginController extends GetxController {
   var formKey = GlobalKey<FormState>();
 
   login() async {
-    // if (formKey.currentState!.validate()) {}
-    btnLoading.value = true;
-    await Future.delayed(const Duration(milliseconds: 2000));
-    btnLoading.value = false;
-    Get.offAll(
-      const RackPage(),
-      binding: BindingsBuilder.put(() => RackController()),
-    );
+    if (formKey.currentState!.validate()) {
+      btnLoading.value = true;
+      var response = await ApiService.post(
+        url + user,
+        data: _jsonLogin(),
+      );
+      btnLoading.value = false;
+      var success = await manageResponse(response);
+      if (success) {
+        Get.offAll(
+          const RackPage(),
+          binding: BindingsBuilder.put(() => RackController()),
+        );
+      }
+    }
+  }
+
+  testConnection() async {
+    url = "";
+    ip = ipController.text;
+    url = "http://$ip:$port";
+    isConnecting.value = true;
+    var response = await ApiService.get(url + testing);
+    isConnecting.value = false;
+    var success = await manageResponse(response);
+    if (success) {
+      ipController.clear();
+      showSnackbar("Terhubung");
+      connect.value = true;
+    }
   }
 
   onChanged(String value) async {
     if (ipFormKey.currentState!.validate()) {
-      return debounce(() async {
-        //TODO:test connection
-        isConnecting.value = true;
-        await Future.delayed(const Duration(milliseconds: 2000));
-        isConnecting.value = false;
-        ipController.clear();
-        connect.value = true;
-        showSnackbar("Terhubung");
-      });
+      return debounce(() async => await testConnection());
     }
   }
 
@@ -51,5 +67,12 @@ class LoginController extends GetxController {
       debouncer!.cancel();
     }
     debouncer = Timer(duration, callback);
+  }
+
+  Object? _jsonLogin() {
+    return {
+      "user": usernameController.text,
+      "pass": pwController.text,
+    };
   }
 }
