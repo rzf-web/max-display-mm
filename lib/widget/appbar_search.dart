@@ -7,6 +7,7 @@ class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Widget? backWidget;
   final Rx<bool> searchMode;
+  final List<Widget>? actionWidgets;
   final TextEditingController? controller;
   final Function(String)? onChanged;
   const AppBarSearch({
@@ -16,21 +17,23 @@ class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
     this.controller,
     this.onChanged,
     this.backWidget,
+    this.actionWidgets,
   });
 
   @override
   Widget build(BuildContext context) {
+    var actions = <Widget>[
+      ...actionWidgets ?? [],
+      IconButton(
+        onPressed: () => searchMode.value = true,
+        icon: Icon(MdiIcons.magnify),
+      ),
+    ];
     return Obx(
       () => AppBar(
         leading: searchMode.value ? const SizedBox() : backWidget,
         title: searchMode.value ? null : Text(title),
-        actions: [
-          if (!searchMode.value)
-            IconButton(
-              onPressed: () => searchMode.value = true,
-              icon: Icon(MdiIcons.magnify),
-            ),
-        ],
+        actions: [if (!searchMode.value) ...actions],
         flexibleSpace: Visibility(
           visible: searchMode.value,
           child: Center(

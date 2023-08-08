@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:max_display_app/view/rack_list/rack.controller.dart';
 import 'package:max_display_app/widget/appbar_search.dart';
 import 'package:max_display_app/widget/card_list.dart';
@@ -20,6 +20,12 @@ class RackPage extends GetView<RackController> {
           searchMode: controller.searchMode,
           controller: controller.searchController,
           onChanged: controller.onSearch,
+          actionWidgets: [
+            IconButton(
+              onPressed: controller.logout,
+              icon: Icon(MdiIcons.logout),
+            ),
+          ],
         ),
         body: Obx(
           () => controller.isLoading.value

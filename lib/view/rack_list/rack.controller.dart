@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:max_display_app/model/rack.dart';
 import 'package:max_display_app/services/api/api_helper.dart';
 import 'package:max_display_app/services/api/api_service.dart';
+import 'package:max_display_app/view/login/login.controller.dart';
+import 'package:max_display_app/view/login/login.page.dart';
 import 'package:max_display_app/view/product_list/product.controller.dart';
 import 'package:max_display_app/view/product_list/product.page.dart';
 
@@ -48,6 +50,13 @@ class RackController extends GetxController {
     );
   }
 
+  logout() {
+    Get.offAll(
+      const LoginPage(),
+      binding: BindingsBuilder.put(() => LoginController()),
+    );
+  }
+
   Future<bool> getBack() async {
     if (searchMode.value) {
       searchMode.value = false;
@@ -59,6 +68,7 @@ class RackController extends GetxController {
   @override
   Future<void> onInit() async {
     await getData();
+    Get.delete<LoginController>();
     super.onInit();
   }
 }
