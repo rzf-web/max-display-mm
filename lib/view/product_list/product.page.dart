@@ -4,7 +4,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:max_display_app/helper/formatter.dart';
 import 'package:max_display_app/helper/style_utils.dart';
 import 'package:max_display_app/helper/theme.dart';
-import 'package:max_display_app/helper/validator.dart';
 import 'package:max_display_app/view/product_list/product.controller.dart';
 import 'package:max_display_app/widget/appbar_search.dart';
 import 'package:max_display_app/widget/card_list.dart';

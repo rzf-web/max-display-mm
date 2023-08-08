@@ -98,7 +98,18 @@ class ProductController extends GetxController {
     confController.text = data.conf.toString();
   }
 
-  onSearch(String value) {}
+  onSearch(String? value) {
+    if (value != "" && value != null) {
+      final searchProduct = _products.where((e) {
+        var titleLower = e.name.toLowerCase().obs;
+        final searchLower = value.toLowerCase();
+        return titleLower.contains(searchLower);
+      }).toList();
+      products.value = searchProduct;
+    } else {
+      products.value = _products;
+    }
+  }
 
   changeInputMode(InputMode? data) {
     if (data != null) {
