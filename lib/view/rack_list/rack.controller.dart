@@ -17,7 +17,7 @@ class RackController extends GetxController {
 
   getData() async {
     isLoading.value = true;
-    var response = await ApiService.get(url + rack);
+    var response = await ApiService.get(url + rackUrl);
     isLoading.value = false;
     var success = await manageResponse(response);
     if (success) {

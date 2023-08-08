@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:max_display_app/helper/dialog.dart';
 import 'package:max_display_app/helper/formatter.dart';
+import 'package:max_display_app/helper/global_variable.dart';
 import 'package:max_display_app/helper/validator.dart';
 import 'package:max_display_app/model/product.dart';
 import 'package:max_display_app/services/api/api_helper.dart';
@@ -22,6 +23,7 @@ class ProductController extends GetxController {
   final confController = TextEditingController();
   final _products = <Product>[];
   final products = <Product>[].obs;
+  Product? data;
   var inputMode = InputMode.request.obs;
   var searchMode = false.obs;
   var isLoading = false.obs;
@@ -30,43 +32,72 @@ class ProductController extends GetxController {
   ProductController(this.rack);
 
   submit() {
-    if (inputMode.value == InputMode.request) {
-      submitRequest();
-    } else {
-      submitConfrim();
+    if (data != null) {
+      if (inputMode.value == InputMode.request) {
+        submitRequest(data!);
+      } else {
+        submitConfrim(data!);
+      }
     }
   }
 
-  submitRequest() {
+  submitRequest(Product data) async {
     String? valid = phoneValidator(
       "Jumlah Request",
       reqController.text,
     );
 
     if (valid == null) {
-      //TODO:do something
+      var req = int.parse(reqController.text);
+      var response = await ApiService.put(
+        url + productUrl,
+        data: _jsonSubmit(data.id, req, data.conf),
+      );
+      var success = await manageResponse(response, success: true);
+      if (success) {
+        Get.back();
+        getData();
+      }
     } else {
       warningDialog(valid, () => Get.back());
     }
   }
 
-  submitConfrim() {
+  submitConfrim(Product data) async {
     String? valid = phoneValidator(
       "Jumlah Konfirmasi",
       confController.text,
     );
 
     if (valid == null) {
-      //TODO:do something
+      var conf = int.parse(confController.text);
+      var response = await ApiService.put(
+        url + productUrl,
+        data: _jsonSubmit(data.id, data.req, conf),
+      );
+      var success = await manageResponse(response, success: true);
+      if (success) {
+        Get.back();
+        getData();
+      }
     } else {
       warningDialog(valid, () => Get.back());
     }
   }
 
+  Object? _jsonSubmit(String id, int req, int conf) {
+    return {
+      "user": username,
+      "idproduk": id,
+      "request": req,
+      "confirm": conf,
+    };
+  }
+
   getData() async {
     isLoading.value = true;
     var response = await ApiService.get(
-      url + product,
+      url + productUrl,
       queryParameters: {"rak": rack},
     );
     isLoading.value = false;
@@ -82,8 +113,10 @@ class ProductController extends GetxController {
   }
 
   showDetail(Product data) async {
+    this.data = data;
     innitData(data);
     await showModalBtm();
+    this.data = null;
   }
 
   innitData(Product data) {

@@ -7,10 +7,10 @@ import 'package:max_display_app/helper/dialog.dart';
 var url = "";
 var ip = "";
 const port = "1934";
-const testing = "/test";
-const user = "/user";
-const rack = "/rak";
-const product = "/produk/maxdisplay";
+const testingUrl = "/test";
+const userUrl = "/user";
+const rackUrl = "/rak";
+const productUrl = "/produk/maxdisplay";
 
 //Function Helper
 BaseOptions getOptionTimeOut(int seconds) {
@@ -56,7 +56,7 @@ Future<bool> manageResponse(
 Future<bool> _succesResponse(dio.Response data, bool showMsg) async {
   var response = data.data;
   if (showMsg == true) {
-    succesDialog(response['message'], () => Get.back());
+    await succesDialog(response['message'], () => Get.back());
   }
   return true;
 }

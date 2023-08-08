@@ -27,7 +27,7 @@ class LoginController extends GetxController {
     if (formKey.currentState!.validate()) {
       btnLoading.value = true;
       var response = await ApiService.post(
-        url + user,
+        url + userUrl,
         data: _jsonLogin(),
       );
       btnLoading.value = false;
@@ -41,10 +41,6 @@ class LoginController extends GetxController {
         );
       }
     }
-    Get.offAll(
-      const RackPage(),
-      binding: BindingsBuilder.put(() => RackController()),
-    );
   }
 
   testConnection() async {
@@ -52,7 +48,7 @@ class LoginController extends GetxController {
     ip = ipController.text;
     url = "http://$ip:$port";
     isConnecting.value = true;
-    var response = await ApiService.get(url + testing);
+    var response = await ApiService.get(url + testingUrl);
     isConnecting.value = false;
     var success = await manageResponse(response);
     if (success) {

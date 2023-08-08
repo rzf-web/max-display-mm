@@ -180,7 +180,7 @@ class _DropDownInputMode extends GetView<ProductController> {
   DropdownMenuItem<InputMode> buildMenuItem(InputMode item) => DropdownMenuItem(
         value: item,
         child: Text(
-          item.name,
+          item.name.toCapitalized(),
           style: const TextStyle(color: Color(0xFF4F4F4F), fontSize: 14),
         ),
       );
