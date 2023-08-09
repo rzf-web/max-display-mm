@@ -43,7 +43,7 @@ class DetailProductLayout extends GetView<ProductController> {
               ),
               TextFieldProduct(
                 hint: "Palonogram",
-                icon: MdiIcons.tagOutline,
+                icon: MdiIcons.gateArrowRight,
                 controller: controller.paloController,
                 readOnly: true,
               ),
