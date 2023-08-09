@@ -75,7 +75,7 @@ class _FormInput extends GetView<LoginController> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: AuthTextField(
-                  label: "Ip Addres",
+                  label: "Ip Address",
                   hint: "Masukkan ip address",
                   keyForm: controller.ipFormKey,
                   keyboardType: TextInputType.number,

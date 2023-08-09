@@ -68,9 +68,10 @@ class ProductController extends GetxController {
       "Jumlah Konfirmasi",
       confController.text,
     );
+    var conf = int.tryParse(confController.text) ?? 0;
+    var req = int.tryParse(reqController.text) ?? 0;
 
-    if (valid == null) {
-      var conf = int.parse(confController.text);
+    if (valid == null && conf <= req) {
       var response = await ApiService.put(
         url + productUrl,
         data: _jsonSubmit(data.id, data.req, conf),
@@ -81,7 +82,13 @@ class ProductController extends GetxController {
         getData();
       }
     } else {
-      warningDialog(valid, () => Get.back());
+      if (valid != null) warningDialog(valid, () => Get.back());
+      if (valid == null) {
+        warningDialog(
+          "Jumlah Konfirmasi harus lebih kecil atau sama dengan jumlah request",
+          () => Get.back(),
+        );
+      }
     }
   }
 
@@ -109,7 +116,11 @@ class ProductController extends GetxController {
       for (var item in data['data'] as List<dynamic>) {
         _products.add(Product.fromJson(item));
       }
-      products.value = _products;
+      if (searchController.text != "") {
+        onSearch(searchController.text);
+      } else {
+        products.value = _products;
+      }
     }
   }
 
