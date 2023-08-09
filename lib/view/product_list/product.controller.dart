@@ -91,6 +91,7 @@ class ProductController extends GetxController {
       "idproduk": id,
       "request": req,
       "confirm": conf,
+      "jenis": inputMode.value.name.toCapitalized(),
     };
   }
 
