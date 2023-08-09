@@ -10,6 +10,8 @@ import 'package:max_display_app/services/api/api_service.dart';
 
 enum InputMode { request, confirm }
 
+enum Filter { all, request }
+
 class ProductController extends GetxController {
   final searchController = TextEditingController();
   final idController = TextEditingController();
@@ -25,6 +27,7 @@ class ProductController extends GetxController {
   final products = <Product>[].obs;
   Product? data;
   var inputMode = InputMode.request.obs;
+  var filter = Filter.all;
   var searchMode = false.obs;
   var isLoading = false.obs;
   var rack = "";
@@ -47,8 +50,8 @@ class ProductController extends GetxController {
       reqController.text,
     );
 
-    if (valid == null) {
-      var req = int.parse(reqController.text);
+    var req = int.tryParse(reqController.text) ?? 0;
+    if (valid == null && req <= data.display) {
       var response = await ApiService.put(
         url + productUrl,
         data: _jsonSubmit(data.id, req, data.conf),
@@ -59,7 +62,13 @@ class ProductController extends GetxController {
         getData();
       }
     } else {
-      warningDialog(valid, () => Get.back());
+      if (valid != null) warningDialog(valid, () => Get.back());
+      if (valid == null) {
+        warningDialog(
+          "Jumlah Request harus lebih kecil atau sama dengan jumlah max display",
+          () => Get.back(),
+        );
+      }
     }
   }
 
@@ -102,11 +111,20 @@ class ProductController extends GetxController {
     };
   }
 
+  changeFilter(Filter data) async {
+    filter = data;
+    await getData();
+  }
+
   getData() async {
     isLoading.value = true;
+    var filter = this.filter == Filter.all ? "" : "1";
     var response = await ApiService.get(
       url + productUrl,
-      queryParameters: {"rak": rack},
+      queryParameters: {
+        "rak": rack,
+        "filter": filter,
+      },
     );
     isLoading.value = false;
     var success = await manageResponse(response);
@@ -165,6 +183,7 @@ class ProductController extends GetxController {
   Future<bool> getBack() async {
     if (searchMode.value) {
       searchMode.value = false;
+      searchController.clear();
       return false;
     }
     return true;

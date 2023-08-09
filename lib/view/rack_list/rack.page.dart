@@ -21,9 +21,14 @@ class RackPage extends GetView<RackController> {
           controller: controller.searchController,
           onChanged: controller.onSearch,
           actionWidgets: [
-            IconButton(
-              onPressed: controller.logout,
-              icon: Icon(MdiIcons.logout),
+            SizedBox(
+              height: 22,
+              width: 42,
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                onPressed: controller.logout,
+                icon: Icon(MdiIcons.logout, size: 22),
+              ),
             ),
           ],
         ),

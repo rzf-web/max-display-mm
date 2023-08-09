@@ -23,11 +23,16 @@ class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     var actions = <Widget>[
-      ...actionWidgets ?? [],
-      IconButton(
-        onPressed: () => searchMode.value = true,
-        icon: Icon(MdiIcons.magnify),
+      SizedBox(
+        width: 42,
+        height: 22,
+        child: IconButton(
+          padding: EdgeInsets.zero,
+          onPressed: () => searchMode.value = true,
+          icon: Icon(MdiIcons.magnify, size: 22),
+        ),
       ),
+      ...actionWidgets ?? [],
     ];
     return Obx(
       () => AppBar(

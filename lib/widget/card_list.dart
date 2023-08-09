@@ -43,7 +43,11 @@ class CardList extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Text(title),
+                  Expanded(
+                      child: Text(
+                    title,
+                    overflow: TextOverflow.ellipsis,
+                  )),
                 ],
               ),
             ),

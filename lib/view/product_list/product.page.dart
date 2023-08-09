@@ -27,6 +27,7 @@ class ProductPage extends GetView<ProductController> {
           controller: controller.searchController,
           onChanged: controller.onSearch,
           backWidget: const BackButton(),
+          actionWidgets: const [_ShowFilter()],
         ),
         body: Obx(
           () => controller.isLoading.value
@@ -58,6 +59,33 @@ class ProductPage extends GetView<ProductController> {
                 ),
         ),
       ),
+    );
+  }
+}
+
+class _ShowFilter extends GetView<ProductController> {
+  const _ShowFilter();
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      shadowColor: const Color(0xFFACACAC).withOpacity(0.2),
+      position: PopupMenuPosition.under,
+      offset: const Offset(0, 8),
+      elevation: 4,
+      itemBuilder: (context) {
+        return [
+          ...Filter.values.map(
+            (e) => PopupMenuItem(
+              onTap: () => controller.changeFilter(e),
+              child: Text(e.name.capitalize!),
+            ),
+          ),
+        ];
+      },
     );
   }
 }
