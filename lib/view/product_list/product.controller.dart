@@ -144,21 +144,27 @@ class ProductController extends GetxController {
 
   showDetail(Product data) async {
     this.data = data;
-    innitData(data);
+    innitData();
     await showModalBtm();
     this.data = null;
+    clear();
   }
 
-  innitData(Product data) {
-    idController.text = data.id;
-    paloController.text = data.palonogram;
-    nameController.text = data.name;
-    barcodeController.text = data.barcode;
-    priceController.text = moneyFormatter(data.price);
-    rackController.text = data.rack;
-    displayController.text = data.display.toString();
-    reqController.text = data.req.toString();
-    confController.text = data.conf.toString();
+  clear() {
+    reqController.clear();
+    confController.clear();
+  }
+
+  innitData() {
+    idController.text = data!.id;
+    paloController.text = data!.palonogram;
+    nameController.text = data!.name;
+    barcodeController.text = data!.barcode;
+    priceController.text = moneyFormatter(data!.price);
+    rackController.text = data!.rack;
+    displayController.text = data!.display.toString();
+    if (data!.req != 0) reqController.text = data!.req.toString();
+    if (data!.req != 0) confController.text = data!.req.toString();
   }
 
   onSearch(String? value) {
@@ -177,6 +183,11 @@ class ProductController extends GetxController {
   changeInputMode(InputMode? data) {
     if (data != null) {
       inputMode.value = data;
+      if (data == InputMode.confirm) {
+        reqController.text = this.data!.req.toString();
+      } else {
+        clear();
+      }
     }
   }
 
