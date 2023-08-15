@@ -52,7 +52,6 @@ class LoginController extends GetxController {
     isConnecting.value = false;
     var success = await manageResponse(response);
     if (success) {
-      ipController.clear();
       showSnackbar("Terhubung");
       connect.value = true;
     }
@@ -75,9 +74,7 @@ class LoginController extends GetxController {
     VoidCallback callback, {
     Duration duration = const Duration(milliseconds: 1000),
   }) {
-    if (debouncer != null) {
-      debouncer!.cancel();
-    }
+    if (debouncer != null) debouncer!.cancel();
     debouncer = Timer(duration, callback);
   }
 
