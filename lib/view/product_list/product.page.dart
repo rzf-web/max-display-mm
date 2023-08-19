@@ -46,8 +46,7 @@ class ProductPage extends GetView<ProductController> {
                           ...controller.products().map(
                                 (e) => CardList(
                                   title: e.name,
-                                  subtitle:
-                                      "{ Req : ${e.req},Conf : ${e.conf} }",
+                                  subtitle: "Req: ${e.req}",
                                   content: moneyFormatter(e.price),
                                   onTap: () => controller.showDetail(e),
                                 ),
