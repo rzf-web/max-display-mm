@@ -11,7 +11,7 @@ class TextFieldProduct extends StatelessWidget {
   final String? Function(String?)? validator;
   final Function()? onTap;
   const TextFieldProduct({
-    Key? key,
+    super.key,
     required this.hint,
     required this.icon,
     required this.controller,
@@ -20,7 +20,7 @@ class TextFieldProduct extends StatelessWidget {
     this.validator,
     this.focusNode,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
