@@ -27,7 +27,7 @@ class Product {
         name = json['nama'],
         rack = json['rak'],
         palonogram = json['planogram'],
-        display = int.parse(json['min'].toString()),
+        display = int.parse(json['max'].toString()),
         price = double.parse(json['retail'].toString()),
         req = int.parse(json['request'].toString()),
         conf = int.parse(json['acc'].toString());
