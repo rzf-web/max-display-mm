@@ -9,6 +9,12 @@ extension StringCasingExtension on String {
       .join(' ');
 }
 
+String doubleFormatter(double data) {
+  RegExp regex = RegExp(r'([.]*0)(?!.*\d)');
+  String s = data.toString().replaceAll(regex, '');
+  return s;
+}
+
 String moneyFormatter(double money) {
   return NumberFormat.currency(
     locale: 'id',

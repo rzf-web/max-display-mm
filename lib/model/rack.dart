@@ -1,7 +1,7 @@
 class Rack {
   final String name;
-  final int totalProduct;
-  final int totalQty;
+  final String totalProduct;
+  final String totalQty;
 
   Rack({
     required this.name,
@@ -12,8 +12,8 @@ class Rack {
   factory Rack.fromJson(Map<String, dynamic> json) {
     return Rack(
       name: json['rak'],
-      totalProduct: json['total_product'],
-      totalQty: json['total_qty'],
+      totalProduct: json['total_product'].toString(),
+      totalQty: json['total_qty'].toString(),
     );
   }
 }

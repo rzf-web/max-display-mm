@@ -45,16 +45,15 @@ class ProductController extends GetxController {
   }
 
   submitRequest(Product data) async {
-    String? valid = phoneValidator(
+    String? valid = doubleIntValidator(
       "Jumlah Request",
       reqController.text,
     );
 
-    var req = int.tryParse(reqController.text) ?? 0;
-    if (valid == null && req <= data.display) {
+    if (valid == null) {
       var response = await ApiService.put(
         url + productUrl,
-        data: _jsonSubmit(data.id, req, data.conf),
+        data: _jsonSubmit(data.id, reqController.text, data.conf),
       );
       var success = await manageResponse(response, success: true);
       if (success) {
@@ -62,28 +61,25 @@ class ProductController extends GetxController {
         getData();
       }
     } else {
-      if (valid != null) warningDialog(valid, () => Get.back());
-      if (valid == null) {
-        warningDialog(
-          "Jumlah Request harus lebih kecil atau sama dengan jumlah max display",
-          () => Get.back(),
-        );
-      }
+      warningDialog(valid, () => Get.back());
+      warningDialog(
+        "Jumlah Request harus lebih kecil atau sama dengan jumlah max display",
+        () => Get.back(),
+      );
     }
   }
 
   submitConfrim(Product data) async {
-    String? valid = phoneValidator(
-      "Jumlah Konfirmasi",
-      confController.text,
-    );
-    var conf = int.tryParse(confController.text) ?? 0;
-    var req = int.tryParse(reqController.text) ?? 0;
+    var confStr = confController.text.replaceAll(',', '.');
+    var reqStr = reqController.text.replaceAll(',', '.');
+    var conf = double.tryParse(confStr) ?? 0;
+    var req = double.tryParse(reqStr) ?? 0.0;
+    String? valid = doubleIntValidator("Jumlah Konfirmasi", confStr);
 
     if (valid == null && conf <= req) {
       var response = await ApiService.put(
         url + productUrl,
-        data: _jsonSubmit(data.id, data.req, conf),
+        data: _jsonSubmit(data.id, data.req, confController.text),
       );
       var success = await manageResponse(response, success: true);
       if (success) {
@@ -101,7 +97,7 @@ class ProductController extends GetxController {
     }
   }
 
-  Object? _jsonSubmit(String id, int req, int conf) {
+  Object? _jsonSubmit(String id, String req, String conf) {
     return {
       "user": username,
       "idproduk": id,
@@ -162,9 +158,9 @@ class ProductController extends GetxController {
     barcodeController.text = data!.barcode;
     priceController.text = moneyFormatter(data!.price);
     rackController.text = data!.rack;
-    displayController.text = data!.display.toString();
-    if (data!.req != 0) reqController.text = data!.req.toString();
-    if (data!.req != 0) confController.text = data!.req.toString();
+    displayController.text = data!.display;
+    if (data!.req != "0") reqController.text = data!.req;
+    if (data!.req != "0") confController.text = data!.req;
   }
 
   onSearch(String? value) {

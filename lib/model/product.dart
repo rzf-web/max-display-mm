@@ -4,10 +4,10 @@ class Product {
   final String name;
   final String rack;
   final String palonogram;
-  final int display;
+  final String display;
   final double price;
-  final int req;
-  final int conf;
+  final String req;
+  final String conf;
 
   Product({
     required this.id,
@@ -27,8 +27,8 @@ class Product {
         name = json['nama'],
         rack = json['rak'],
         palonogram = json['planogram'],
-        display = int.parse(json['max'].toString()),
+        display = json['max'].toString(),
         price = double.parse(json['retail'].toString()),
-        req = int.parse(json['request'].toString()),
-        conf = int.parse(json['acc'].toString());
+        req = json['request'].toString(),
+        conf = json['acc'].toString();
 }

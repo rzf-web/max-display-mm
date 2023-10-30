@@ -49,8 +49,8 @@ class RackPage extends GetView<RackController> {
                           ...controller.rackList().map(
                                 (e) => CardList(
                                   title: e.name,
-                                  subtitle: "${e.totalProduct} Product",
                                   content: "${e.totalQty} Qty",
+                                  subtitle: "${e.totalProduct} Product",
                                   onTap: () => controller.productPage(e.name),
                                 ),
                               ),

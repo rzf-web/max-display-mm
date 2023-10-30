@@ -43,6 +43,19 @@ String? phoneValidator(String field, String value) {
   }
 }
 
+String? doubleIntValidator(String field, String value) {
+  if (value.isNotEmpty) {
+    var regex = RegExp(r'(^\d*\.?\d*)').hasMatch(value);
+    if (regex) {
+      return null;
+    } else {
+      return "$field harus valid!";
+    }
+  } else {
+    return "$field tidak boleh kosong";
+  }
+}
+
 String? pwValidator(String password) {
   if (password != "") {
     if (password.length >= 5) {
