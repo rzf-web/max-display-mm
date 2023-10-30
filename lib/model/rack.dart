@@ -12,8 +12,8 @@ class Rack {
   factory Rack.fromJson(Map<String, dynamic> json) {
     return Rack(
       name: json['rak'],
-      totalProduct: json['totalProduct'],
-      totalQty: json['totalQty'],
+      totalProduct: json['total_product'],
+      totalQty: json['total_qty'],
     );
   }
 }
