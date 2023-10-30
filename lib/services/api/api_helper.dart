@@ -69,11 +69,12 @@ Future<bool> _errorResponse(DioException exception, bool showMsg) async {
     }
     return false;
   }
+
   if (exception.message != null) {
-    errorDialog(exception.message!, () => Get.back());
+    if (showMsg) errorDialog(exception.message!, () => Get.back());
     return false;
   } else {
-    errorDialog(exception.error.toString(), () => Get.back());
+    if (showMsg) errorDialog(exception.error.toString(), () => Get.back());
     return false;
   }
 }

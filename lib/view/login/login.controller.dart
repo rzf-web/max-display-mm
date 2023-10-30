@@ -50,10 +50,12 @@ class LoginController extends GetxController {
     isConnecting.value = true;
     var response = await ApiService.get(url + testingUrl);
     isConnecting.value = false;
-    var success = await manageResponse(response);
+    var success = await manageResponse(response, error: false);
     if (success) {
       showSnackbar("Terhubung");
       connect.value = true;
+    } else {
+      showSnackbar("Tidak Dapat Terhubung");
     }
   }
 
