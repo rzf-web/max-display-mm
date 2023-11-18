@@ -185,7 +185,6 @@ class ProductController extends GetxController {
   }
 
   changeInputMode(InputMode? data) {
-    print(data);
     if (data != null) {
       inputMode.value = data;
       if (data == InputMode.confirm) {
