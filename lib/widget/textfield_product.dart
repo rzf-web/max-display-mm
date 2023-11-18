@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:max_display_app/helper/theme.dart';
 
 class TextFieldProduct extends StatelessWidget {
+  final String label;
   final String hint;
   final IconData icon;
   final TextEditingController controller;
@@ -20,6 +21,7 @@ class TextFieldProduct extends StatelessWidget {
     this.validator,
     this.focusNode,
     this.onTap,
+    required this.label,
   });
 
   @override
@@ -52,6 +54,7 @@ class TextFieldProduct extends StatelessWidget {
               fontSize: 16,
               color: Color(0xFFB8B8B8),
             ),
+            labelText: label,
             hintText: hint,
           ),
         ),

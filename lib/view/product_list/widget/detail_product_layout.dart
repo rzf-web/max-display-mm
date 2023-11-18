@@ -36,27 +36,47 @@ class DetailProductLayout extends GetView<ProductController> {
                 ),
               ),
               TextFieldProduct(
+                label: "Nama",
                 hint: "Nama Produk",
                 icon: MdiIcons.foodTakeoutBoxOutline,
                 controller: controller.nameController,
                 readOnly: true,
               ),
               TextFieldProduct(
+                label: "Planogram",
                 hint: "Planogram",
                 icon: MdiIcons.gateArrowRight,
                 controller: controller.paloController,
-                readOnly: true,
-              ),
-              TextFieldProduct(
-                hint: "Harga",
-                icon: MdiIcons.currencyUsd,
-                controller: controller.priceController,
                 readOnly: true,
               ),
               Row(
                 children: [
                   Expanded(
                     child: TextFieldProduct(
+                      label: "Harga",
+                      hint: "Harga",
+                      icon: MdiIcons.currencyUsd,
+                      controller: controller.priceController,
+                      readOnly: true,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: TextFieldProduct(
+                      label: "Rak",
+                      hint: "Rak",
+                      icon: MdiIcons.viewDashboardVariantOutline,
+                      controller: controller.rackController,
+                      readOnly: true,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFieldProduct(
+                      label: "ID Produk",
                       hint: "ID Produk",
                       icon: MdiIcons.tagOutline,
                       controller: controller.idController,
@@ -66,6 +86,7 @@ class DetailProductLayout extends GetView<ProductController> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: TextFieldProduct(
+                      label: "Barcode",
                       hint: "Barcode",
                       icon: MdiIcons.barcode,
                       controller: controller.barcodeController,
@@ -78,15 +99,17 @@ class DetailProductLayout extends GetView<ProductController> {
                 children: [
                   Expanded(
                     child: TextFieldProduct(
-                      hint: "Rak",
-                      icon: MdiIcons.viewDashboardVariantOutline,
-                      controller: controller.rackController,
+                      label: "Stok",
+                      hint: "Stok",
+                      icon: MdiIcons.package,
+                      controller: controller.stockController,
                       readOnly: true,
                     ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: TextFieldProduct(
+                      label: "Max Display",
                       hint: "Max Display",
                       icon: MdiIcons.cartOutline,
                       controller: controller.displayController,
@@ -103,6 +126,7 @@ class DetailProductLayout extends GetView<ProductController> {
               ),
               if (controller.inputMode.value == InputMode.request)
                 TextFieldProduct(
+                  label: "Request",
                   hint: "Masukan Request",
                   icon: MdiIcons.arrowUpRight,
                   controller: controller.reqController,
@@ -113,6 +137,7 @@ class DetailProductLayout extends GetView<ProductController> {
                   children: [
                     Expanded(
                       child: TextFieldProduct(
+                        label: "Request",
                         hint: "Masukan Request",
                         icon: MdiIcons.arrowDown,
                         controller: controller.reqController,
@@ -123,6 +148,7 @@ class DetailProductLayout extends GetView<ProductController> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: TextFieldProduct(
+                        label: "Konfirmasi",
                         hint: "Konfirmasi",
                         icon: MdiIcons.arrowUpRight,
                         controller: controller.confController,

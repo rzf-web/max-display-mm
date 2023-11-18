@@ -22,6 +22,7 @@ class ProductController extends GetxController {
   final priceController = TextEditingController();
   final rackController = TextEditingController();
   final displayController = TextEditingController();
+  final stockController = TextEditingController();
   final reqController = TextEditingController();
   final confController = TextEditingController();
   final _products = <Product>[];
@@ -58,6 +59,7 @@ class ProductController extends GetxController {
       if (success) {
         Get.back();
         getData();
+        inputMode.value = InputMode.confirm;
       }
     } else {
       warningDialog(valid, () => Get.back());
@@ -148,7 +150,6 @@ class ProductController extends GetxController {
   clear() {
     reqController.clear();
     confController.clear();
-    inputMode.value = InputMode.confirm;
   }
 
   innitData() {
@@ -159,8 +160,15 @@ class ProductController extends GetxController {
     priceController.text = moneyFormatter(data!.price);
     rackController.text = data!.rack;
     displayController.text = data!.display;
+    stockController.text = doubleFormatter(data!.stock);
     if (data!.req != "0") reqController.text = data!.req;
-    if (data!.req != "0") confController.text = data!.req;
+    if (data!.req != "0") {
+      if (data!.stock >= double.parse(data!.req)) {
+        confController.text = data!.req;
+      } else {
+        confController.text = doubleFormatter(data!.stock);
+      }
+    }
   }
 
   onSearch(String? value) {
@@ -177,6 +185,7 @@ class ProductController extends GetxController {
   }
 
   changeInputMode(InputMode? data) {
+    print(data);
     if (data != null) {
       inputMode.value = data;
       if (data == InputMode.confirm) {

@@ -41,8 +41,9 @@ class RackController extends GetxController {
     }
   }
 
-  productPage(String rack) {
-    Get.toNamed(Routes.product, arguments: rack);
+  productPage(String rack) async {
+    await Get.toNamed(Routes.product, arguments: rack);
+    await getData();
   }
 
   logout() {

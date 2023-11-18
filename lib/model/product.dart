@@ -6,6 +6,7 @@ class Product {
   final String palonogram;
   final String display;
   final double price;
+  final double stock;
   final String req;
   final String conf;
 
@@ -16,6 +17,7 @@ class Product {
     required this.rack,
     required this.palonogram,
     required this.display,
+    required this.stock,
     required this.price,
     required this.req,
     required this.conf,
@@ -29,6 +31,7 @@ class Product {
         palonogram = json['planogram'],
         display = json['max'].toString(),
         price = double.parse(json['retail'].toString()),
+        stock = double.parse(json['stok'].toString()),
         req = json['request'].toString(),
         conf = json['acc'].toString();
 }

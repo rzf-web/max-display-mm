@@ -50,7 +50,8 @@ class ProductPage extends GetView<ProductController> {
                               ...controller.products().map(
                                     (e) => CardList(
                                       title: e.name,
-                                      subtitle: "Req: ${e.req}",
+                                      subtitle:
+                                          "Req: ${e.req} - Stok: ${doubleFormatter(e.stock)}",
                                       content: moneyFormatter(e.price),
                                       onTap: () => controller.showDetail(e),
                                     ),
