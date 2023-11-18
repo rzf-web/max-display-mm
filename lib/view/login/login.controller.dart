@@ -3,11 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:max_display_app/helper/dialog.dart';
 import 'package:max_display_app/helper/global_variable.dart';
+import 'package:max_display_app/routes/app_pages.dart';
 import 'package:max_display_app/services/api/api_helper.dart';
 import 'package:max_display_app/services/api/api_service.dart';
 import 'package:max_display_app/services/shared/shared_pref.dart';
-import 'package:max_display_app/view/rack_list/rack.controller.dart';
-import 'package:max_display_app/view/rack_list/rack.page.dart';
 
 class LoginController extends GetxController {
   Timer? debouncer;
@@ -35,10 +34,7 @@ class LoginController extends GetxController {
       if (success) {
         await SharedPref.saveIp();
         username = usernameController.text;
-        Get.offAll(
-          const RackPage(),
-          binding: BindingsBuilder.put(() => RackController()),
-        );
+        Get.offAllNamed(Routes.rack);
       }
     }
   }

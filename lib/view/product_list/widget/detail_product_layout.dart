@@ -114,7 +114,7 @@ class DetailProductLayout extends GetView<ProductController> {
                     Expanded(
                       child: TextFieldProduct(
                         hint: "Masukan Request",
-                        icon: MdiIcons.arrowUpRight,
+                        icon: MdiIcons.arrowDown,
                         controller: controller.reqController,
                         keyboardType: TextInputType.number,
                         readOnly: true,
@@ -124,7 +124,7 @@ class DetailProductLayout extends GetView<ProductController> {
                     Expanded(
                       child: TextFieldProduct(
                         hint: "Konfirmasi",
-                        icon: MdiIcons.arrowDown,
+                        icon: MdiIcons.arrowUpRight,
                         controller: controller.confController,
                         keyboardType: TextInputType.number,
                       ),

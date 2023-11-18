@@ -1,12 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:max_display_app/model/rack.dart';
+import 'package:max_display_app/routes/app_pages.dart';
 import 'package:max_display_app/services/api/api_helper.dart';
 import 'package:max_display_app/services/api/api_service.dart';
 import 'package:max_display_app/view/login/login.controller.dart';
-import 'package:max_display_app/view/login/login.page.dart';
-import 'package:max_display_app/view/product_list/product.controller.dart';
-import 'package:max_display_app/view/product_list/product.page.dart';
 
 class RackController extends GetxController {
   final searchController = TextEditingController();
@@ -44,17 +42,11 @@ class RackController extends GetxController {
   }
 
   productPage(String rack) {
-    Get.to(
-      const ProductPage(),
-      binding: BindingsBuilder.put(() => ProductController(rack)),
-    );
+    Get.toNamed(Routes.product, arguments: rack);
   }
 
   logout() {
-    Get.offAll(
-      const LoginPage(),
-      binding: BindingsBuilder.put(() => LoginController()),
-    );
+    Get.offAllNamed(Routes.login);
   }
 
   Future<bool> getBack() async {

@@ -3,8 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:max_display_app/helper/theme.dart';
-import 'package:max_display_app/view/login/login.controller.dart';
-import 'package:max_display_app/view/login/login.page.dart';
+import 'package:max_display_app/routes/app_pages.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +20,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialBinding: AppBindings(),
-      home: const LoginPage(),
+      initialRoute: AppPages.initialPage,
+      getPages: AppPages.pages,
       theme: ThemeData(
         colorScheme: ThemeData().colorScheme.copyWith(primary: primaryColor),
         scaffoldBackgroundColor: const Color(0xFFFAFAFA),
@@ -49,12 +48,5 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class AppBindings extends Bindings {
-  @override
-  void dependencies() {
-    Get.put(LoginController());
   }
 }

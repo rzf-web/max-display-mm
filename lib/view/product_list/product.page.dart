@@ -5,6 +5,7 @@ import 'package:max_display_app/helper/formatter.dart';
 import 'package:max_display_app/helper/style_utils.dart';
 import 'package:max_display_app/helper/theme.dart';
 import 'package:max_display_app/view/product_list/product.controller.dart';
+import 'package:max_display_app/widget/app_data_not_found.dart';
 import 'package:max_display_app/widget/appbar_search.dart';
 import 'package:max_display_app/widget/card_list.dart';
 import 'package:max_display_app/widget/custom_btn.dart';
@@ -32,29 +33,34 @@ class ProductPage extends GetView<ProductController> {
         body: Obx(
           () => controller.isLoading.value
               ? const LoadingWidget()
-              : Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10.0,
-                    horizontal: 16.0,
-                  ),
-                  child: RefreshIndicator(
-                    onRefresh: () async => await controller.getData(),
-                    child: RemoveScrollIndicator(
-                      child: ListView(
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        children: [
-                          ...controller.products().map(
-                                (e) => CardList(
-                                  title: e.name,
-                                  subtitle: "Req: ${e.req}",
-                                  content: moneyFormatter(e.price),
-                                  onTap: () => controller.showDetail(e),
-                                ),
-                              ),
-                        ],
+              : Stack(
+                  children: [
+                    if (controller.products().isEmpty) const AppDataNotFound(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 16.0,
+                      ),
+                      child: RefreshIndicator(
+                        onRefresh: () async => await controller.getData(),
+                        child: RemoveScrollIndicator(
+                          child: ListView(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            children: [
+                              ...controller.products().map(
+                                    (e) => CardList(
+                                      title: e.name,
+                                      subtitle: "Req: ${e.req}",
+                                      content: moneyFormatter(e.price),
+                                      onTap: () => controller.showDetail(e),
+                                    ),
+                                  ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
         ),
       ),

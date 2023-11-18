@@ -13,6 +13,7 @@ enum InputMode { request, confirm }
 enum Filter { all, request }
 
 class ProductController extends GetxController {
+  final dataArguments = Get.arguments;
   final searchController = TextEditingController();
   final idController = TextEditingController();
   final paloController = TextEditingController();
@@ -26,13 +27,11 @@ class ProductController extends GetxController {
   final _products = <Product>[];
   final products = <Product>[].obs;
   Product? data;
-  var inputMode = InputMode.request.obs;
-  var filter = Filter.all;
+  var inputMode = InputMode.confirm.obs;
+  var filter = Filter.request;
   var searchMode = false.obs;
   var isLoading = false.obs;
   var rack = "";
-
-  ProductController(this.rack);
 
   submit() {
     if (data != null) {
@@ -149,6 +148,7 @@ class ProductController extends GetxController {
   clear() {
     reqController.clear();
     confController.clear();
+    inputMode.value = InputMode.confirm;
   }
 
   innitData() {
@@ -194,6 +194,12 @@ class ProductController extends GetxController {
       return false;
     }
     return true;
+  }
+
+  initialize() {
+    if (dataArguments != null) {
+      rack = dataArguments as String;
+    }
   }
 
   @override
