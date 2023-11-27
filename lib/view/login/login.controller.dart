@@ -16,6 +16,7 @@ class LoginController extends GetxController {
   var isConnecting = false.obs;
   var btnLoading = false.obs;
   var connect = false.obs;
+  var reMe = false;
   var ipFormKey = GlobalKey<FormFieldState>();
   var formKey = GlobalKey<FormState>();
 
@@ -33,6 +34,7 @@ class LoginController extends GetxController {
       var success = await manageResponse(response);
       if (success) {
         await SharedPref.saveIp();
+        await SharedPref.saveUserLogin(reMe);
         username = usernameController.text;
         Get.offAllNamed(Routes.rack);
       }

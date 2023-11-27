@@ -4,6 +4,7 @@ import 'package:max_display_app/helper/const.dart';
 import 'package:max_display_app/helper/style_utils.dart';
 import 'package:max_display_app/helper/validator.dart';
 import 'package:max_display_app/view/login/login.controller.dart';
+import 'package:max_display_app/view/login/widget/app_remember_me.dart';
 import 'package:max_display_app/widget/auth_textfield.dart';
 import 'package:max_display_app/widget/custom_btn.dart';
 
@@ -102,6 +103,10 @@ class _FormInput extends GetView<LoginController> {
                 controller: controller.pwController,
                 validator: (value) => emptyValidator("Password", value!),
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: AppRememberMe(onChanged: (v) => controller.reMe = v),
             ),
           ],
         ),

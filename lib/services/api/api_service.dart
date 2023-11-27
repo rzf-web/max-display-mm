@@ -2,10 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:max_display_app/services/api/api_helper.dart';
 
 class ApiService {
-  static final _dio = Dio();
+  static var _dio = Dio();
 
-  static get(String url, {Map<String, dynamic>? queryParameters}) async {
+  static get(
+    String url, {
+    Map<String, dynamic>? queryParameters,
+    int? secTimeOut,
+  }) async {
     try {
+      if (secTimeOut != null) _dio = Dio(getOptionTimeOut(secTimeOut));
       var response = await _dio.get(
         url,
         queryParameters: queryParameters,
