@@ -75,9 +75,23 @@ class ProductController extends GetxController {
     var reqStr = reqController.text.replaceAll(',', '.');
     var conf = double.tryParse(confStr) ?? 0;
     var req = double.tryParse(reqStr) ?? 0.0;
+    var stock = data.stock;
     String? valid = doubleIntValidator("Jumlah Konfirmasi", confStr);
 
-    if (valid == null && conf <= req) {
+    print(stock < conf);
+
+    if (valid != null) {
+      warningDialog(valid, () => Get.back());
+    } else if (conf > req) {
+      warningDialog(
+        "Jumlah Konfirmasi harus lebih kecil atau sama dengan jumlah request",
+        () => Get.back(),
+      );
+    } else if (stock == 0) {
+      warningDialog("Stok kosong", () => Get.back());
+    } else if (stock < conf) {
+      warningDialog("Stok kurang", () => Get.back());
+    } else {
       var response = await ApiService.put(
         url + productUrl,
         data: _jsonSubmit(data.id, data.req, confController.text),
@@ -86,14 +100,6 @@ class ProductController extends GetxController {
       if (success) {
         Get.back();
         getData();
-      }
-    } else {
-      if (valid != null) warningDialog(valid, () => Get.back());
-      if (valid == null) {
-        warningDialog(
-          "Jumlah Konfirmasi harus lebih kecil atau sama dengan jumlah request",
-          () => Get.back(),
-        );
       }
     }
   }
