@@ -78,8 +78,6 @@ class ProductController extends GetxController {
     var stock = data.stock;
     String? valid = doubleIntValidator("Jumlah Konfirmasi", confStr);
 
-    print(stock < conf);
-
     if (valid != null) {
       warningDialog(valid, () => Get.back());
     } else if (conf > req) {
