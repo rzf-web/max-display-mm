@@ -99,8 +99,8 @@ class DetailProductLayout extends GetView<ProductController> {
                 children: [
                   Expanded(
                     child: TextFieldProduct(
-                      label: "Stok",
-                      hint: "Stok",
+                      label: "Stok Gudang",
+                      hint: "Stok Gudang",
                       icon: MdiIcons.package,
                       controller: controller.stockController,
                       readOnly: true,
