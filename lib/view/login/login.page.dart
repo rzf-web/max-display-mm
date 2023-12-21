@@ -23,7 +23,7 @@ class LoginPage extends GetView<LoginController> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 40.0, bottom: 24.0),
-                  child: Image.asset(rzfLogo, height: 70),
+                  child: Image.asset(loginLogo, height: 70),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(bottom: 16.0),

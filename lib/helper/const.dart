@@ -1,4 +1,3 @@
 //Image
-
-const rzfLogo = "assets/rzf-logo.png";
-const appsLogo = "assets/RZFMinimarket.ico";
+const loginLogo = "assets/max-display-logo1.png";
+const appsLogo = "assets/logo.jpg";
