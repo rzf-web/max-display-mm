@@ -4,6 +4,7 @@ import 'package:max_display_app/model/rack.dart';
 import 'package:max_display_app/routes/app_pages.dart';
 import 'package:max_display_app/services/api/api_helper.dart';
 import 'package:max_display_app/services/api/api_service.dart';
+import 'package:max_display_app/services/shared/shared_pref.dart';
 import 'package:max_display_app/view/login/login.controller.dart';
 
 class RackController extends GetxController {
@@ -48,6 +49,7 @@ class RackController extends GetxController {
 
   logout() {
     Get.offAllNamed(Routes.login);
+    SharedPref.saveUserLogin(false);
   }
 
   Future<bool> getBack() async {
