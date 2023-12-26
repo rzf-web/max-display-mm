@@ -29,9 +29,9 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     if (success) {
       await Future.delayed(const Duration(milliseconds: 1000));
       loadingMsg.value = 'Berhasil login';
-      Get.toNamed(Routes.rack);
+      Get.offAllNamed(Routes.rack);
     } else {
-      Get.toNamed(Routes.login);
+      Get.offAllNamed(Routes.login);
     }
   }
 
@@ -46,7 +46,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
       await Future.delayed(const Duration(milliseconds: 2000));
       loadingMsg.value = 'Tidak dapat menerima respon';
     } else {
-      Get.toNamed(Routes.login);
+      Get.offAllNamed(Routes.login);
     }
   }
 
