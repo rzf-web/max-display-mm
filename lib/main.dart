@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       initialRoute: AppPages.initialPage,
       getPages: AppPages.pages,
       theme: ThemeData(
+        useMaterial3: false,
         colorScheme: ThemeData().colorScheme.copyWith(primary: primaryColor),
         scaffoldBackgroundColor: const Color(0xFFFAFAFA),
         primaryColor: primaryColor,
